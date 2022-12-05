@@ -1,14 +1,21 @@
-import { getFeaturedEvents } from "../dummy-data";
-import EventList from "../components/events/EventList";
-
-function Homepage() {
-  const featuredEvents = getFeaturedEvents();
+function HomePage(props) {
+  const { products } = props;
 
   return (
-    <div>
-      <EventList items={featuredEvents} />
-    </div>
+    <ul>
+      {products.map((product) => (
+        <li key={product.id}>{product.title}</li>
+      ))}
+    </ul>
   );
 }
 
-export default Homepage;
+export async function getStaticProps() {
+  return {
+    props: {
+      products: [{ id: "p1", title: "Product 1" }],
+    },
+  };
+}
+
+export default HomePage;
